@@ -33,14 +33,14 @@
 
 #define EXITING_TASK_MARKER	0xdeaddead
 
-static __read_mostly unsigned int walt_ravg_hist_size = 5;
+static __read_mostly unsigned int walt_ravg_hist_size = 3;
 static __read_mostly unsigned int walt_window_stats_policy =
-	WINDOW_STATS_MAX_RECENT_AVG;
+	WINDOW_STATS_AVG;
 static __read_mostly unsigned int walt_account_wait_time = 1;
 static __read_mostly unsigned int walt_freq_account_wait_time = 0;
 static __read_mostly unsigned int walt_io_is_busy = 0;
 
-unsigned int sysctl_sched_walt_init_task_load_pct = 15;
+unsigned int sysctl_sched_walt_init_task_load_pct = 5;
 
 /* 1 -> use PELT based load stats, 0 -> use window-based load stats */
 unsigned int __read_mostly walt_disabled = 0;
@@ -68,22 +68,22 @@ static unsigned int max_possible_capacity = 1024;
 /* Mask of all CPUs that have  max_possible_capacity */
 static cpumask_t mpc_mask = CPU_MASK_ALL;
 
-/* Window size (in ns) */
-__read_mostly unsigned int walt_ravg_window = 20000000;
+/* Window size (in ns) = 5.55ms */
+__read_mostly unsigned int walt_ravg_window = 5555555;
 
-/* Min window size (in ns) = 10ms */
+/* Min window size (in ns) = 1ms */
 #ifdef CONFIG_HZ_300
 /*
  * Tick interval becomes to 3333333 due to
  * rounding error when HZ=300.
  */
-#define MIN_SCHED_RAVG_WINDOW (3333333 * 6)
+#define MIN_SCHED_RAVG_WINDOW 3333333
 #else
-#define MIN_SCHED_RAVG_WINDOW 10000000
+#define MIN_SCHED_RAVG_WINDOW 1000000
 #endif
 
-/* Max window size (in ns) = 1s */
-#define MAX_SCHED_RAVG_WINDOW 1000000000
+/* Max window size (in ns) = 16.66ms */
+#define MAX_SCHED_RAVG_WINDOW 16666665
 
 static unsigned int sync_cpu;
 static ktime_t ktime_last;
