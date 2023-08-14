@@ -467,9 +467,9 @@ msm8998_v2_kbss_fuse_ref_volt[2][MSM8998_KBSS_FUSE_CORNERS] = {
 		736000,
 	},
 	[CPRH_KBSS_PERFORMANCE_CLUSTER_ID] = {
-		756000,
-		756000,
-		756000,
+		712000,
+		712000,
+		712000,
 		932000,
 	},
 };
